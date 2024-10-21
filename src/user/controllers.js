@@ -54,13 +54,3 @@ export async function getProfile(req, res) {
         res.status(400).json({error: error.message});
     }
 }
-
-export async function uploadProfileImage(req, res) {
-    try {
-        const {imageBase64} = req.body;
-        const user = await updateUserImage(req.userId, imageBase64);
-        res.status(200).json({message: 'Imagen actualizada', profileImage: user.profileImage});
-    } catch (error) {
-        res.status(400).json({error: error.message});
-    }
-}

@@ -9,11 +9,5 @@ router.post('/register', requestPayloadMiddleware(registerSchema), userControlle
 router.post('/login', requestPayloadMiddleware(loginSchema), userController.login);
 router.post('/logout', authMiddleware, userController.logout);
 router.get('/me', authMiddleware, userController.getProfile);
-router.post(
-    '/upload',
-    authMiddleware,
-    requestPayloadMiddleware(uploadImageSchema),
-    userController.uploadProfileImage
-);
 
 export default router;

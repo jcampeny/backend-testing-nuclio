@@ -139,44 +139,4 @@ describe('User Service Unit Tests', () => {
             expect(User.findById).toHaveBeenCalledWith(id);
         });
     });
-
-    describe('updateUserImage', () => {
-        test('Debería actualizar la imagen de perfil del usuario', async () => {
-            // Configurar el mock para actualizar al usuario
-            vi.spyOn(User, 'findByIdAndUpdate').mockResolvedValue({
-                _id: '123',
-                profileImage: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...',
-            });
-
-            const id = '123';
-            const imageBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...';
-
-            const user = await userService.updateUserImage(id, imageBase64);
-
-            expect(User.findByIdAndUpdate).toHaveBeenCalledWith(
-                id,
-                {profileImage: imageBase64},
-                {new: true},
-            );
-            expect(user).toHaveProperty('profileImage', imageBase64);
-        });
-
-        test('Debería lanzar un error si el usuario no existe', async () => {
-            // Configurar el mock para que no encuentre al usuario
-            User.findByIdAndUpdate.mockResolvedValue(null);
-
-            const id = '123';
-            const imageBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...';
-
-            await expect(
-                userService.updateUserImage(id, imageBase64)
-            ).rejects.toThrow('Usuario no encontrado');
-
-            expect(User.findByIdAndUpdate).toHaveBeenCalledWith(
-                id,
-                {profileImage: imageBase64},
-                {new: true},
-            );
-        });
-    });
 });

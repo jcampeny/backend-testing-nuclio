@@ -31,13 +31,3 @@ export async function getUserById(id) {
     if (!user) throw new Error('Usuario no encontrado');
     return user;
 }
-
-export async function updateUserImage(id, imageBase64) {
-    const user = await User.findByIdAndUpdate(
-        id,
-        { profileImage: imageBase64 },
-        { new: true }
-    );
-    if (!user) throw new Error('Usuario no encontrado');
-    return user;
-}
