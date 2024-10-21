@@ -15,19 +15,3 @@ export const registerSchema = Joi.object({
         'any.required': 'La contraseña es obligatoria',
     }),
 });
-
-export const loginSchema = Joi.object({
-    email: Joi.string().email().required().messages({
-        'string.email': 'Debe proporcionar un email válido',
-        'any.required': 'El email es obligatorio',
-    }),
-    password: Joi.string().required().messages({
-        'any.required': 'La contraseña es obligatoria',
-    }),
-});
-
-export const uploadImageSchema = Joi.object({
-    imageBase64: Joi.string().required().messages({
-        'any.required': 'La imagen es obligatoria',
-    }),
-});
