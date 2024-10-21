@@ -10,13 +10,9 @@ export async function registerUser(userData) {
     return user;
 }
 
-export async function loginUser(email, password) {
-    const user = await User.findOne({ email });
-    if (!user) throw new Error('Credenciales inválidas');
-
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) throw new Error('Credenciales inválidas');
-
+export async function getUserById(id) {
+    const user = await User.findById(id);
+    if (!user) throw new Error('Usuario no encontrado');
     return user;
 }
 
@@ -26,18 +22,12 @@ export function generateToken(user) {
     return token;
 }
 
-export async function getUserById(id) {
-    const user = await User.findById(id);
-    if (!user) throw new Error('Usuario no encontrado');
-    return user;
-}
+export async function loginUser(email, password) {
+    const user = await User.findOne({ email });
+    if (!user) throw new Error('Credenciales inválidas');
 
-export async function updateUserImage(id, imageBase64) {
-    const user = await User.findByIdAndUpdate(
-        id,
-        { profileImage: imageBase64 },
-        { new: true }
-    );
-    if (!user) throw new Error('Usuario no encontrado');
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) throw new Error('Credenciales inválidas');
+
     return user;
 }
